@@ -8,6 +8,7 @@ void create(int* a, int Low, int Max, int N);
 void print(int* a, int N);
 template <typename T>
 T count1(T* a, T N);
+int count2(int* a, int N);
 
 int main()
 {
@@ -23,24 +24,37 @@ int main()
 	create(a, Low, Max, N);
 	print(a,N);
 	cout << endl;
-	cout << "Кількіть парних: " << count1(a, N) << endl;
+	cout << "Кількіть парних(спосіб з шаблоном): " << count1(a, N) << endl;
+	cout << "Кількіть парних(спосіб без шаблону): " << count2(a, N) << endl;
 	delete[] a;
 }
 void create(int* a, int Low, int Max, int N)
 {
-	for (int i = 0; i <= N - 1; ++i)
+	for (int i = 0; i < N; ++i)
 		a[i] = Low + rand() % (Max - Low + 1);
 }
 void print(int* a, int N)
 {
-	for (int i = 0; i <= N - 1; ++i)
+	for (int i = 0; i < N; ++i)
 		cout << setw(3) << a[i] << " ";
 }
 template <typename T>
-T count1(T* a, T N)
+T count1(T* a, T N)          // <-  спосіб з шаблоном
 {
 	int j = 0;
-	for (int i = 0; i <= N - 1; ++i)
+	for (int i = 0; i < N; ++i)
+	{
+		if (a[i] % 2 == 0)
+		{
+			++j;
+		}
+	}
+	return j;
+}
+int count2(int* a, int N)                     // <- спосіб без шаблону
+{
+	int j = 0;
+	for (int i = 0; i < N; ++i)
 	{
 		if (a[i] % 2 == 0)
 		{
